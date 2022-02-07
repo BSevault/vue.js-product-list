@@ -1,13 +1,18 @@
 <template>
     <h1>Liste des produits</h1>
     <div class="product-list">
-            <div
+            <div class="product-card"
                 v-for="product of products"
                 :key="product.id"
-                :id="'product-' + product.id"
             >
-                <h2>{{ product.title }}</h2>
+            <h2> {{product.title}} </h2>
+            <img :src="product.image">
+            <p> {{product.description}} </p>
+            <p><strong> {{product.price}} € </strong></p>
+            <p> Rating : {{product.rating.rate}} &#9733; / {{product.rating.count}} </p>
+
             </div>
+
     </div>
 </template>
 
@@ -16,7 +21,7 @@ import { ref } from "vue";
 
 export default {
     name: "ProductList",
-    setup() {
+    data() {
         const products = ref(null);
 
         fetch("https://fakestoreapi.com/products")
@@ -24,8 +29,16 @@ export default {
             .then((json) => (products.value = json));
         console.log(products);
         return { products };
-    },
+    }
+
+
+
+
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+    .product-card img {
+        max-width: 120px;;
+    }
+</style>
