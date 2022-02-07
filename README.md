@@ -1,1 +1,1 @@
-# vue.js-technical-test
+# Vue.js 3 Product list
