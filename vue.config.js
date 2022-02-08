@@ -1,5 +1,4 @@
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production'
-      ? '/vue.js-product-list/'
-      : '/',
-  }
+    publicPath: '/vue.js-product-list',
+    runtimeCompiler: true
+}
