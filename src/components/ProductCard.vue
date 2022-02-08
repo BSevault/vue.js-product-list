@@ -1,7 +1,7 @@
 <template>
     <div class="product-card">
-        <h2>{{ product.title }}</h2>
         <img :src="product.image" />
+        <h2>{{ product.title }}</h2>
         <p>{{ product.description }}</p>
         <p>
             <strong> {{ product.price }} € </strong>
@@ -20,12 +20,17 @@ export default {
     name: 'ProductCard',
     props: {
          product: Object 
-         },
+         }
 };
 </script>
 
 <style scoped>
 .product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
     width: 400px;
     margin: 15px;
     border: 1px solid black;
