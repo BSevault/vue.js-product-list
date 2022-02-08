@@ -1,5 +1,5 @@
 <template>
-    <div class="product-card">
+    <div :class="product.category" class="product-card">
         <img :src="product.image" />
         <h2>{{ product.title }}</h2>
         <p>{{ product.description }}</p>

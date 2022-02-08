@@ -1,8 +1,26 @@
 <template>
     <h1>Our products</h1>
-    <sorting-select 
-        @sortingOption="sortingMode($event)"
-    ></sorting-select>
+    <button @click="displayCategory('men')" >Category</button>
+
+    <div class="sorting-wrapper">
+
+        <div class="check-box">
+            <check-box 
+            v-for="(cat, index) of categories"
+            :key="index"
+            :cat="cat"
+            @change="test($event.target.value)" 
+            ></check-box>
+        </div>
+
+        <div class="sorting-select">
+            <sorting-select 
+                @sortingOption="sortingMode($event)"
+            ></sorting-select>
+        </div>
+    </div>
+
+
     <div class="product-list">
         <ProductCard
             v-for="product of products"
@@ -16,16 +34,23 @@
 import { ref } from "vue";
 import ProductCard from "./components/ProductCard.vue";
 import SortingSelect from "./components/SortingSelect.vue";
+import CheckBox from "./components/CheckBox.vue";
 
 export default {
     name: "ProductList",
     components: {
         ProductCard,
-        SortingSelect
+        SortingSelect,
+        CheckBox
         
     },
 
     data() {
+        const categories = ['men', 'women', 'jewelery', 'electronics'];
+        return {categories};
+    },
+
+    setup() {
         // Getting the product list as a json with fetch(), and pass it to ProductCard component as props
         const products = ref(null);
 
@@ -36,6 +61,11 @@ export default {
     },
 
     methods: {
+
+        test(texte) {
+            console.log(texte);
+        },
+
         // Sorts products from low to high by key value, optional parameters key2 for products.rating.rate
         sortAsc(products, key, key2) {
             products.sort((a, b) => {
@@ -79,6 +109,19 @@ export default {
                     break;
             }
         },
+
+        // Selects category to display
+        displayCategory(categories) {
+            const products = document.getElementsByClassName('product-card');
+            for (let i = 0 ; i<products.length ; i++) {
+                const search = products[i].classList.value.substring(0,4)
+               if (search.includes(categories, 0)) {
+                   products[i].style.display = "flex"
+                } else {
+                    products[i].style.display = "none"
+               }
+            }
+        }
     },
 };
 </script>
@@ -88,5 +131,20 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.sorting-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.check-box {
+    display: flex;
+    margin: 0 10px;
+}
+
+.sorting-select {
+    margin: 0 10px;
 }
 </style>
